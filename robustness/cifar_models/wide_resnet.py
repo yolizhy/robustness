@@ -85,6 +85,8 @@ class WideResNet(nn.Module):
 def wrn28_10(**kwargs):
     wrn28_10= WideResNet(28,10,10,0.0,**kwargs)
 
+wrn28_10 = wrn28_10
+
 def test():
     net = wrn28_10()
     y = net(torch.randn(1,3,32,32))
