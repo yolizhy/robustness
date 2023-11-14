@@ -26,7 +26,7 @@ from .tools import constants
 from .tools import openimgs_helpers
 from . import data_augmentation as da
 from . import loaders
-
+import pywt   ##for wave
 from .tools.helpers import get_label_mapping
 
 ###
@@ -365,6 +365,47 @@ class CIFAR(DataSet):
         if pretrained:
             raise ValueError('CIFAR does not support pytorch_pretrained=True')
         return cifar_models.__dict__[arch](num_classes=self.num_classes)
+
+
+# Wavelet Transform Functions
+def A_1(X, wave):
+    cA1, (a,b,c) = pywt.dwt2(X, wave, mode='constant')
+    R = pywt.idwt2((cA1,  (a,b, None)), wave)
+    return R
+    
+def A_2(X, wave):
+    cA1, (a,b,c) = pywt.dwt2(X, wave, mode='constant')
+    R = pywt.idwt2((cA1,  (None,None, None)), wave)
+    return R
+
+
+class CIFAR(DataSet):
+    """
+    CIFAR-10 dataset [Kri09]_.
+
+    """
+    def __init__(self, data_path='/tmp/', **kwargs):
+        """
+        """
+        ds_kwargs = {
+            'num_classes': 10,
+            'mean': ch.tensor([0.4914, 0.4822, 0.4465]),
+            'std': ch.tensor([0.2023, 0.1994, 0.2010]),
+            'custom_class': datasets.CIFAR10,
+            'label_mapping': None, 
+            'transform_train': da.TRAIN_TRANSFORMS_DEFAULT(32),
+            'transform_test': da.TEST_TRANSFORMS_DEFAULT(32)
+        }
+        ds_kwargs = self.override_args(ds_kwargs, kwargs)
+        super(CIFAR, self).__init__('cifar', data_path, **ds_kwargs)
+
+    def get_model(self, arch, pretrained):
+        """
+        """
+        if pretrained:
+            raise ValueError('CIFAR does not support pytorch_pretrained=True')
+        return cifar_models.__dict__[arch](num_classes=self.num_classes)
+
 
 class CINIC(DataSet):
     """
