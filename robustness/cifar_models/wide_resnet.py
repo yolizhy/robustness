@@ -43,7 +43,7 @@ class NetworkBlock(nn.Module):
         return self.layer(x)
 
 class WideResNet(nn.Module):
-    def __init__(self, depth, num_classes, widen_factor, dropRate=0.0):
+    def __init__(self, depth=28, num_classes=10, widen_factor=10, dropRate=0.0):
         super(WideResNet, self).__init__()
         nChannels = [16, 16*widen_factor, 32*widen_factor, 64*widen_factor]
         assert((depth - 4) % 6 == 0)
@@ -83,7 +83,7 @@ class WideResNet(nn.Module):
         return self.fc(out)
 
 def Wrn28_10(**kwargs):
-    return WideResNet(28,10,10,**kwargs)
+    return WideResNet(**kwargs)
 
 wrn28_10 = Wrn28_10
 
