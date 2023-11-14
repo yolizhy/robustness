@@ -73,7 +73,7 @@ class WideResNet(nn.Module):
             elif isinstance(m, nn.Linear):
                 m.bias.data.zero_()
     def forward(self, x, with_latent=False, fake_relu=False, no_relu=False):
-        assert (not no_relu), 
+        assert (not no_relu),  \
             "no_relu not yet supported for this architecture"
         out = self.conv1(x)
         out = self.block1(out)
