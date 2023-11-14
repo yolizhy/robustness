@@ -83,7 +83,7 @@ class WideResNet(nn.Module):
         return self.fc(out)
 
 def Wrn28_10(**kwargs):
-    return WideResNet(28,10,10,0.0,**kwargs)
+    return WideResNet(28,10,10,**kwargs)
 
 wrn28_10 = Wrn28_10
 
