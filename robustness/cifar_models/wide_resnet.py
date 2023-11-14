@@ -82,8 +82,8 @@ class WideResNet(nn.Module):
         out = out.view(-1, self.nChannels)
         return self.fc(out)
 
-def wrn28_10():
-    wrn28_10= WideResNet(28,10,10,0.0)
+def wrn28_10(**kwargs):
+    wrn28_10= WideResNet(28,10,10,0.0,**kwargs)
 
 def test():
     net = wrn28_10()
