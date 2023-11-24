@@ -109,6 +109,7 @@ BY_DATASET=looked up in TRAINING_DEFAULTS at runtime)]`
 MODEL_LOADER_ARGS = [
     ['dataset', list(datasets.DATASETS.keys()), '', REQ],
     ['data', str, 'path to the dataset', '/tmp/'],
+    ['wv', int, 'wavelet level', 0],
     ['arch', str, 'architecture (see {cifar,imagenet}_models/', REQ],
     ['batch-size', int, 'batch size for data loading', BY_DATASET],
     ['workers', int, '# data loading workers', 30],
